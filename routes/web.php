@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['controller' => PageController::class], function () {
+    Route::get('/', 'index')->name('page.index');
+});
+
+Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
+    Route::post('upload', 'upload')->name('products.upload');
 });
